@@ -4,7 +4,7 @@ const output = document.getElementById("output");
 function getFilmTitles(films) {
   return films
     .slice()
-    .sort((a, b) => a.episode_id - b.episode_id)
+    .sort((a, b) => a.episode_id - b.episode_id)  // sortby episode_id
     .map(film => `${film.episode_id}. ${film.title}`)
     .join("\n");
 }
