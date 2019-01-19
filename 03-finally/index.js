@@ -18,12 +18,18 @@ fetch(API_URL + "films")
     }
     return response.json().then(films => {
       output.innerText = getFilmTitles(films);
+      // return films;
     });
   })
   .catch(error => {
     console.warn(error);
     output.innerText = ":(";
+    // return [];
   })
   .finally(() => {
     spinner.remove();
-  });
+  })
+  // .then (films => {
+  //   // You can still execute this code after finally if you got it.
+  //   console.log(films);
+  // });
