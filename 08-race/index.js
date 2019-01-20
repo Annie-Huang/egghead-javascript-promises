@@ -6,6 +6,7 @@ function resolveAfter(ms, value) {
   });
 }
 
+// This is a very useful implementation for timeout!!
 function timeout(ms, promise) {
   let timeoutID;
   const timeoutPromise = new Promise((_, reject) => {
@@ -15,8 +16,14 @@ function timeout(ms, promise) {
       );
     }, ms);
   });
+
+  // Promise.race returns a promise itself, which is set out the same way as the first input promise that settles,
+  //   but differently as soon as any of the input promises resolves or rejects,
+  //   the promise return by promise.race is resolved or rejected accordingly.
+  // The promise.race method will return the fastest of the input promises if you will.
   return Promise.race([promise, timeoutPromise]).finally(
     () => {
+      // If you don't have the clearTimeout it will run until it finished, even though it can be much longer than input promise's timeout.
       clearTimeout(timeoutID);
     }
   );
@@ -32,3 +39,10 @@ timeout(500, promise).then(
     console.log(`Rejected: ${error}`);
   }
 );
+
+
+// To track the time for how long the process is running:
+// gtime -f "%e" node index.js
+// It will show something like:
+// A
+// 5.05     << meaning it takes 5.05 seconds to run
