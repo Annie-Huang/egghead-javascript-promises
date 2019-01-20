@@ -11,7 +11,20 @@ async function queryAPI(endpoint) {
   throw Error("Unsuccessful response");
 }
 
+// // The code of 'async function main(){..} with this queryAPI also works.
+// // But the above async function queryAPI(endpoint) is more clean
+// function queryAPI(endpoint) {
+//   return fetch(API_URL + endpoint).then(response => {
+//     return response.ok
+//       ? response.json()
+//       : Promise.reject(Error("Unsuccessful response"));
+//   });
+// }
+
+
 async function main() {
+  // You can have a try block withint async to wrapped the await function.
+  // Then you can have the catch block and finally block.
   try {
     const [films, planets, species] = await Promise.all([
       queryAPI("films"),
@@ -31,3 +44,18 @@ async function main() {
 }
 
 main();
+
+
+// // Not clean implementation
+// async function main() {
+//   const films = await queryAPI("movies");
+//   output.innerText = '${films.length} films' ;
+//   spinner.remove();
+// }
+//
+// main().catch (error => {
+//   console.warn(error);
+//   output.innerText = ":(";
+//   spinner.remove();
+// });
+
